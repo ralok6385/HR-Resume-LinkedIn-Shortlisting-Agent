@@ -1,16 +1,50 @@
 [
   {
-    "candidate_name": "Alok Kumar",
-    "email_status": "Draft Generated",
-    "timestamp": "2026-05-10T15:30:45Z",
-    "subject": "Interview Invitation: Senior Software Engineer Role",
-    "body": "Dear Alok,\n\nI hope you're doing well. After reviewing your impressive background in Python and Large Language Models, I'm excited to invite you for an interview for our Senior Software Engineer position.\n\nYour work on the 'AI-Powered HR Agent' aligns perfectly with our tech stack. We'd love to discuss your experience in more detail.\n\nBest regards,\nRecruitment Team"
+    "candidate_name": "Sarah Chen",
+    "score": 9.2,
+    "status": "Invitation Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
   },
   {
-    "candidate_name": "John Doe",
-    "email_status": "Draft Generated",
-    "timestamp": "2026-05-10T15:31:12Z",
-    "subject": "Update regarding your application",
-    "body": "Hi John,\n\nThank you for your interest in the position. While we were impressed with your portfolio, we have decided to move forward with other candidates whose skills align more closely with our current requirements.\n\nWe wish you the best of luck in your career journey.\n\nSincerely,\nHR Department"
+    "candidate_name": "Michael Rodriguez",
+    "score": 8.5,
+    "status": "Invitation Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
+  },
+  {
+    "candidate_name": "Priya Sharma",
+    "score": 8.1,
+    "status": "Invitation Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
+  },
+  {
+    "candidate_name": "David Miller",
+    "score": 7.4,
+    "status": "Invitation Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
+  },
+  {
+    "candidate_name": "James Wilson",
+    "score": 6.8,
+    "status": "Rejection Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
+  },
+  {
+    "candidate_name": "Elena Popova",
+    "score": 5.2,
+    "status": "Rejection Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
+  },
+  {
+    "candidate_name": "Robert Taylor",
+    "score": 4.1,
+    "status": "Rejection Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
+  },
+  {
+    "candidate_name": "Emma Watson",
+    "score": 3.5,
+    "status": "Rejection Sent",
+    "timestamp": "2026-05-10T21:15:00Z"
   }
 ]
