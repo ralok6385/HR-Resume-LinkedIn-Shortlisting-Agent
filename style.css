@@ -1,0 +1,199 @@
+/* ═══════════════════════════════════════════════════════════════
+   HR SHORTLISTING AGENT — PREMIUM DESIGN SYSTEM (LIGHT MODE)
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --violet: #6366f1;
+  --violet-glow: rgba(99, 102, 241, 0.1);
+  --violet-soft: #818cf8;
+  --text: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --radius-card: 16px;
+  --radius-input: 8px;
+  --radius-btn: 100px;
+  --radius-badge: 100px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Keyframes ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+/* ── Global ── */
+.stApp { background: var(--bg) !important; }
+.block-container { 
+  max-width: 100% !important; 
+  padding: 0 2.5rem !important; 
+  margin: 0 !important; 
+}
+
+/* Hide Streamlit chrome */
+header[data-testid="stHeader"] {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+#MainMenu, footer, [data-testid="stToolbar"] {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+/* ── Sidebar ── */
+[data-testid="stSidebar"] {
+  background-color: #fdfdfd !important;
+  border-right: 1px solid #f1f5f9 !important;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.02) !important;
+}
+[data-testid="stSidebar"] * { color: #1e293b !important; }
+
+/* ── Navigation Tabs ── */
+div[data-testid="stTabs"] {
+  margin-top: -1.5rem !important;
+  background: transparent !important;
+}
+
+div[data-baseweb="tab-list"] {
+  background: #f1f5f9 !important;
+  padding: 8px 1.5rem !important;
+  border-radius: 100px !important;
+  border: 1px solid #e2e8f0 !important;
+  margin: 0 0 20px 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 0px !important;
+}
+
+div[data-baseweb="tab"] {
+  flex: 1 !important;
+  display: flex !important;
+  justify-content: center !important;
+  border-radius: 0px !important;
+  padding: 12px 24px !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+  transition: all 0.3s var(--ease) !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+div[data-baseweb="tab"][aria-selected="true"] {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* ── Cards & Containers ── */
+.input-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.input-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+.candidate-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin-bottom: 12px;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.candidate-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border-color: var(--violet-soft);
+}
+
+/* ── Profile Pics ── */
+.profile-pic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+}
+
+/* ── Buttons ── */
+.stButton>button {
+  border-radius: var(--radius-btn) !important;
+  background: white !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  padding: 10px 24px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s var(--ease) !important;
+}
+.stButton>button:hover {
+  background: var(--surface-hover) !important;
+  border-color: var(--violet) !important;
+  color: var(--violet) !important;
+  transform: translateY(-2px);
+}
+.stButton>button[kind="primary"] {
+  background: var(--violet) !important;
+  color: white !important;
+  border: none !important;
+}
+.stButton>button[kind="primary"]:hover {
+  background: var(--violet-soft) !important;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* ── Inputs & Textareas ── */
+div[data-testid="stTextInput"] input, 
+div[data-testid="stTextArea"] textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  color: #1e293b !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1rem !important;
+  transition: all 0.2s var(--ease) !important;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.02) !important;
+}
+
+div[data-testid="stTextInput"] input:focus, 
+div[data-testid="stTextArea"] textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+  background-color: #ffffff !important;
+  outline: none !important;
+}
+
+/* Specific styling for the JD and Resume areas to look more like 'code' or structured text */
+div[data-testid="stTextArea"] textarea {
+  line-height: 1.6 !important;
+  min-height: 150px !important;
+}
+
+/* ── Skeleton Shimmer ── */
+.skeleton-box {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}

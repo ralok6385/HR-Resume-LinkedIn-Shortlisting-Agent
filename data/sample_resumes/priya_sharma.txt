@@ -1,0 +1,50 @@
+PRIYA SHARMA
+Email: priya.sharma@email.com | Phone: +91-9123456789
+Location: Mumbai, India
+
+PROFESSIONAL SUMMARY
+Full-stack developer with 4 years of experience, transitioning into backend-focused roles. Strong foundation in Python and JavaScript with growing expertise in API development and cloud services.
+
+WORK EXPERIENCE
+
+Full Stack Developer | WebCraft Studio | Mar 2022 – Present (2+ years)
+Domain: Digital Marketing Agency
+- Built client-facing web applications using React frontend with Django backend
+- Developed REST APIs using Django REST Framework for 10+ client projects
+- Managed PostgreSQL databases and implemented basic Redis caching
+- Deployed applications on AWS EC2 instances with basic Docker containerization
+- Wrote unit tests for critical API endpoints using pytest
+
+Junior Developer | StartupBuzz | Aug 2020 – Feb 2022 (1.5 years)
+Domain: EdTech
+- Developed features for an e-learning platform using Python/Flask
+- Built basic CRUD APIs and integrated third-party authentication (OAuth2)
+- Worked with MySQL databases and basic SQL query optimization
+- Participated in daily standups and bi-weekly sprint reviews
+
+Intern | CodeLab Solutions | Jan 2020 – Jul 2020 (6 months)
+Domain: Software Services
+- Assisted in developing internal tools using Python scripts
+- Learned version control with Git and basic CI/CD concepts
+- Wrote documentation for API endpoints
+
+TECHNICAL SKILLS
+Languages: Python, JavaScript, HTML, CSS, SQL
+Frameworks: Django, Flask, React, Node.js (basic)
+Databases: PostgreSQL, MySQL, Redis (basic)
+DevOps: Docker (basic), AWS EC2/S3 (basic), Git
+Tools: Postman, VS Code, Jira
+
+EDUCATION
+Bachelor of Engineering (B.E.) — Computer Science
+University of Mumbai | 2020
+CGPA: 7.8/10
+
+PROJECTS
+1. BookShelf App — Full-stack book management application using Django + React. Features include user authentication, book search, and review system.
+
+2. Weather Dashboard — Python script that fetches weather data from OpenWeatherMap API and displays it with a Flask web interface.
+
+ACHIEVEMENTS
+- Completed Udemy course on "Advanced Django REST Framework" (2023)
+- College coding competition finalist (2019)

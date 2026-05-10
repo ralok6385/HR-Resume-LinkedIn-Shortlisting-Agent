@@ -1,0 +1,31 @@
+SNEHA PATEL
+sneha.patel@email.com
+Pune, India
+
+ABOUT ME
+Recent computer science graduate passionate about data science and machine learning. Looking for opportunities to apply my analytical skills in a dynamic environment.
+
+EXPERIENCE
+
+Data Science Intern | AnalyticsPro | Jun 2023 – Dec 2023 (6 months)
+- Cleaned and processed datasets using Python pandas and NumPy
+- Built basic classification models using scikit-learn
+- Created data visualizations using Matplotlib and Seaborn
+- Assisted senior data scientists with model evaluation
+
+SKILLS
+Python, pandas, NumPy, scikit-learn, Matplotlib, Jupyter Notebooks, basic SQL, Git
+
+EDUCATION
+Bachelor of Science (B.Sc.) — Computer Science
+Pune University | 2023
+Percentage: 72%
+
+PROJECTS
+1. Movie Recommendation System — Built a collaborative filtering recommendation system using Python and scikit-learn for a college project.
+
+2. COVID-19 Data Dashboard — Created a Tableau dashboard visualizing COVID-19 statistics for a data visualization course.
+
+EXTRA-CURRICULAR
+- Member of college coding club
+- Participated in 2 local hackathons

@@ -1,0 +1,65 @@
+ARJUN MEHTA
+Email: arjun.mehta@email.com | Phone: +91-9876543210
+Location: Bangalore, India | LinkedIn: linkedin.com/in/arjunmehta
+
+PROFESSIONAL SUMMARY
+Senior Backend Developer with 7 years of experience building scalable Python microservices and data-intensive applications. Led the backend architecture for a real-time analytics platform processing 50M+ events/day. Passionate about clean code, system design, and mentoring.
+
+WORK EXPERIENCE
+
+Senior Software Engineer | DataStream Technologies | Jan 2022 – Present (3+ years)
+Domain: Data Analytics / SaaS
+- Architected and built a real-time data pipeline using FastAPI, Kafka, and PostgreSQL processing 50M+ daily events with 99.95% uptime
+- Led migration from monolith to microservices architecture, reducing deployment time by 70%
+- Designed and implemented REST APIs consumed by 15+ internal and external clients
+- Implemented comprehensive CI/CD pipelines with GitHub Actions, Docker, and Kubernetes on AWS EKS
+- Mentored a team of 4 junior developers through code reviews and pair programming sessions
+- Set up monitoring with Prometheus + Grafana, reducing incident response time by 60%
+
+Backend Developer | CloudMatrix Solutions | Jul 2019 – Dec 2021 (2.5 years)
+Domain: Cloud Infrastructure
+- Built microservices using Django REST Framework serving 500K+ API requests/day
+- Designed and optimized PostgreSQL schemas, achieving 40% query performance improvement
+- Integrated Redis caching layer reducing API response times by 65%
+- Implemented RabbitMQ-based async task processing for background jobs
+- Contributed to internal Python SDK used across 8 engineering teams
+
+Software Engineer | InnovateTech | Jun 2017 – Jun 2019 (2 years)
+Domain: E-commerce
+- Developed RESTful APIs for e-commerce platform using Flask and SQLAlchemy
+- Built automated testing suite with pytest achieving 92% code coverage
+- Implemented payment gateway integrations (Stripe, Razorpay)
+- Participated in agile ceremonies and contributed to sprint planning
+
+TECHNICAL SKILLS
+Languages: Python, JavaScript, SQL, Bash
+Frameworks: FastAPI, Django, Flask, Django REST Framework
+Databases: PostgreSQL, Redis, MongoDB, Elasticsearch
+DevOps: Docker, Kubernetes, AWS (ECS, EKS, Lambda, S3, RDS), GitHub Actions, Terraform
+Tools: Kafka, RabbitMQ, Celery, Nginx, Prometheus, Grafana
+Concepts: Microservices, REST API Design, Event-Driven Architecture, CQRS, Domain-Driven Design
+
+EDUCATION
+Master of Technology (M.Tech) — Computer Science
+Indian Institute of Technology (IIT) Delhi | 2017
+CGPA: 8.7/10
+
+Bachelor of Technology (B.Tech) — Information Technology
+National Institute of Technology (NIT) Trichy | 2015
+CGPA: 8.3/10
+
+CERTIFICATIONS
+- AWS Solutions Architect – Associate (2023)
+- Google Cloud Professional Cloud Developer (2022)
+
+PROJECTS
+1. EventFlow Engine — Open-source event streaming library for Python microservices. 200+ GitHub stars. Built with asyncio, Kafka integration, and automatic schema validation.
+
+2. QueryOptimizer — Internal tool that analyzes PostgreSQL slow queries and suggests index improvements. Reduced average query time by 45% across 3 production databases.
+
+3. ML Model Serving Platform — Built FastAPI-based model serving infrastructure for ML team. Supports A/B testing, model versioning, and canary deployments using Kubernetes.
+
+ACHIEVEMENTS
+- Speaker at PyCon India 2023: "Scaling Python Microservices to 50M Events/Day"
+- Promoted to Senior Engineer within 18 months at DataStream Technologies
+- Led company hackathon winning team (AI-powered code review bot)

@@ -1,0 +1,53 @@
+VIKRAM DESAI
+vikram.desai@protonmail.com | +91-7654321098
+Chennai, India | GitHub: github.com/vikramdesai
+
+PROFESSIONAL SUMMARY
+Backend developer with 5 years of experience in Python and Java. Currently working on cloud-native applications and API platforms. Experienced with both monolithic and microservices architectures. Actively learning ML/AI deployment practices.
+
+WORK EXPERIENCE
+
+Backend Developer | CloudServe India | Aug 2021 – Present (3+ years)
+Domain: Cloud SaaS Platform
+- Develop and maintain REST APIs using FastAPI serving 200K+ daily requests
+- Implemented OAuth2/JWT authentication and role-based access control
+- Built asynchronous task processing system using Celery and Redis
+- Containerized services with Docker and deployed on AWS ECS
+- Set up basic CI/CD with GitHub Actions for automated testing and deployment
+- Participated in on-call rotation and incident response
+
+Software Developer | TechBridge Solutions | Jul 2019 – Jul 2021 (2 years)
+Domain: Enterprise Software
+- Built backend services using Python (Flask) and Java (Spring Boot)
+- Designed and maintained MySQL and PostgreSQL databases
+- Implemented message queue integrations with RabbitMQ
+- Wrote comprehensive API documentation using Swagger/OpenAPI
+- Conducted code reviews and contributed to coding standards
+
+TECHNICAL SKILLS
+Languages: Python, Java, SQL, JavaScript (basic)
+Frameworks: FastAPI, Flask, Spring Boot, Celery
+Databases: PostgreSQL, MySQL, Redis, DynamoDB (basic)
+Cloud: AWS (EC2, ECS, S3, RDS, Lambda), Docker, basic Kubernetes
+Tools: Git, GitHub Actions, Swagger, Postman, Sentry
+Testing: pytest, JUnit, Locust (load testing)
+
+EDUCATION
+Bachelor of Technology (B.Tech) — Computer Science
+Anna University, Chennai | 2019
+CGPA: 8.0/10
+
+CERTIFICATIONS
+- AWS Certified Developer – Associate (2023)
+
+PROJECTS
+1. API Gateway — Built a lightweight API gateway in Python with rate limiting, request validation, and logging. Used by 3 internal teams at CloudServe.
+
+2. LogAggregator — Python-based log aggregation tool that collects, indexes, and searches application logs. Uses Elasticsearch for storage and FastAPI for the search API.
+
+3. ChatBot MVP — Built a customer support chatbot using Python, LangChain, and OpenAI API. Handles FAQ queries and escalates complex issues to human agents. Currently in internal pilot.
+
+EXTRA
+- Active contributor on Stack Overflow (5K+ reputation, Python tag)
+- Completed "System Design for Interviews" course on Educative
+- Regular attendee of local Python and DevOps meetups

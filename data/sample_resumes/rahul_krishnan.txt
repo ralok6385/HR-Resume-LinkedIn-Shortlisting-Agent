@@ -1,0 +1,55 @@
+RAHUL KRISHNAN
+rahul.k@email.com | +91-8765432109
+Hyderabad, India
+
+SUMMARY
+Backend engineer with 6 years experience in Python and Go. Specialized in high-throughput distributed systems and microservices. Currently building real-time payment processing infrastructure handling $2B+ annual transaction volume.
+
+EXPERIENCE
+
+Senior Backend Engineer | FinPay Solutions | Apr 2021 – Present (3+ years)
+Domain: FinTech / Payments
+- Built high-throughput payment processing microservices handling 10K+ TPS using Python (FastAPI) and Go
+- Designed event-driven architecture using Apache Kafka for real-time transaction processing
+- Implemented distributed tracing with Jaeger and monitoring with Prometheus/Grafana
+- Led database optimization effort: migrated critical paths from PostgreSQL to CockroachDB for horizontal scaling
+- Architected multi-region failover system achieving 99.99% availability SLA
+- Conducted 50+ technical interviews and mentored 6 engineers
+
+Backend Developer | NetServe Technologies | Jun 2018 – Mar 2021 (3 years)
+Domain: Cloud Networking
+- Developed network management APIs using Python/Django and Go
+- Built automated provisioning system for cloud networking equipment
+- Designed PostgreSQL database schemas for multi-tenant SaaS platform
+- Implemented comprehensive API testing with pytest (95% coverage)
+- Containerized all services with Docker, deployed on Kubernetes (GKP)
+
+SKILLS
+Languages: Python, Go, SQL, Bash, TypeScript
+Backend: FastAPI, Django, Gin (Go), gRPC, GraphQL
+Data: PostgreSQL, CockroachDB, Redis, Apache Kafka, Elasticsearch
+Cloud & DevOps: GCP (GKE, Cloud Run, BigQuery), AWS (EKS, Lambda), Docker, Kubernetes, Terraform, ArgoCD
+Observability: Prometheus, Grafana, Jaeger, PagerDuty
+Architecture: Microservices, Event-Driven, CQRS, DDD, Clean Architecture
+
+EDUCATION
+B.Tech — Computer Science & Engineering
+IIIT Hyderabad | 2018
+CGPA: 9.1/10
+
+CERTIFICATIONS
+- Google Cloud Professional Cloud Architect (2023)
+- Certified Kubernetes Administrator (CKA) (2022)
+- AWS Solutions Architect – Associate (2021)
+
+PROJECTS
+1. PaymentRouter — Open-source intelligent payment routing engine. Routes transactions across multiple payment providers based on success rates, costs, and latency. 500+ GitHub stars.
+
+2. DistributedLock — Go library for distributed locking using Redis and etcd. Used by 3 companies in production. Published on pkg.go.dev.
+
+3. StreamProcessor — Real-time stream processing framework built on top of Kafka Streams. Handles windowed aggregations and complex event processing.
+
+PUBLICATIONS & TALKS
+- Blog: "Scaling Payment Systems to $2B+ Volume" — 50K+ reads on Medium
+- Talk at GopherCon India 2023: "Building Resilient Microservices with Go"
+- Open source contributor to FastAPI and Pydantic

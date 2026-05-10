@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Shortlisting Agent</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: auto; margin: 0;
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+  }
+
+  /* ── HERO WRAPPER ── */
+  .hero {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 380px;
+    overflow: hidden;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(160, 130, 255, 0.15);
+  }
+
+  /* ── CANVAS LAYERS ── */
+  canvas.layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── UI CONTENT ── */
+  .ui {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeUp 1.2s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* pill badge */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(230, 210, 255, .95);
+    background: rgba(140, 80, 255, .18);
+    border: 1px solid rgba(200, 140, 255, .28);
+    border-radius: 100px;
+    padding: 7px 18px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: fadeUp 1.2s .1s cubic-bezier(.22,1,.36,1) both;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #d8b4fe;
+    animation: dp 1.8s ease-in-out infinite;
+  }
+  @keyframes dp {
+    0%,100% { opacity:.35; transform:scale(.8); }
+    50%      { opacity:1;   transform:scale(1.3); }
+  }
+
+  /* main title */
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4.5vw, 48px);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -.8px;
+    background: linear-gradient(130deg, #fff 0%, #e9d5ff 30%, #a78bfa 58%, #67e8f9 88%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 1.2s .18s cubic-bezier(.22,1,.36,1) both, shine 6s ease-in-out infinite alternate;
+  }
+  @keyframes shine {
+    0%   { filter: brightness(1) saturate(1); }
+    100% { filter: brightness(1.18) saturate(1.25); }
+  }
+
+  /* subtitle */
+  .sub {
+    font-size: 13.5px;
+    color: rgba(200, 180, 240, .7);
+    margin-top: 6px;
+    letter-spacing: .015em;
+    line-height: 1.6;
+    animation: fadeUp 1.2s .28s cubic-bezier(.22,1,.36,1) both;
+  }
+  .sub em { margin: 0 8px; opacity: .4; font-style: normal; }
+
+  /* CTA buttons */
+  .btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    animation: fadeUp 1.2s .38s cubic-bezier(.22,1,.36,1) both;
+  }
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 11px 28px;
+    border-radius: 100px;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5, #0ea5e9);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    letter-spacing: .03em;
+    transition: transform .2s, filter .2s, box-shadow .2s;
+    box-shadow: 0 0 28px rgba(124, 58, 237, .45);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow: 0 0 40px rgba(124, 58, 237, .65);
+  }
+  .btn-ghost {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 11px 24px;
+    border-radius: 100px;
+    background: rgba(255,255,255,.07);
+    color: rgba(255,255,255,.82);
+    border: 1px solid rgba(255,255,255,.18);
+    cursor: pointer;
+    letter-spacing: .025em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background .2s, border-color .2s;
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.28);
+  }
+
+  /* stats bar */
+  .stats {
+    display: flex;
+    margin-top: 18px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: fadeUp 1.2s .48s cubic-bezier(.22,1,.36,1) both;
+  }
+  .stat {
+    padding: 12px 24px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,.08);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #e9d5ff;
+  }
+  .stat-lbl {
+    font-size: 9.5px;
+    color: rgba(180,160,220,.6);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    .hero { height: 420px; border-radius: 20px; }
+    .ui { padding: 0 20px; }
+    .btns { flex-direction: column; align-items: center; }
+    .stats { flex-wrap: wrap; }
+    .stat { flex: 1 1 45%; border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.08); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero" id="hero">
+  <!-- 6 animation canvas layers -->
+  <canvas class="layer" id="cBg"></canvas>
+  <canvas class="layer" id="cVortex"></canvas>
+  <canvas class="layer" id="cCircuit"></canvas>
+  <canvas class="layer" id="cAurora"></canvas>
+  <canvas class="layer" id="cStars"></canvas>
+  <canvas class="layer" id="cVig"></canvas>
+
+  <!-- UI -->
+  <div class="ui">
+    <div class="pill">
+      <div class="dot"></div>
+      AI-powered recruitment intelligence
+    </div>
+    <div class="title">HR Shortlisting<br>Agent</div>
+    <div class="sub">
+      Rank candidates with transparent scoring
+      <em>·</em>Override with full audit trails
+      <em>·</em>Export production-ready reports
+    </div>
+    <div class="btns">
+      <button class="btn-primary">Start shortlisting →</button>
+      <button class="btn-ghost">Watch demo</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="s1">0</div><div class="stat-lbl">Candidates ranked</div></div>
+      <div class="stat"><div class="stat-num" id="s2">0%</div><div class="stat-lbl">Time saved</div></div>
+      <div class="stat"><div class="stat-num" id="s3">0</div><div class="stat-lbl">Reports exported</div></div>
+      <div class="stat"><div class="stat-num">99.2%</div><div class="stat-lbl">Accuracy</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────
+   CANVAS SETUP
+───────────────────────────────────────── */
+const hero    = document.getElementById('hero');
+const cBg     = document.getElementById('cBg'),     bgCtx  = cBg.getContext('2d');
+const cVortex = document.getElementById('cVortex'), vCtx   = cVortex.getContext('2d');
+const cCircuit= document.getElementById('cCircuit'),ciCtx  = cCircuit.getContext('2d');
+const cAurora = document.getElementById('cAurora'), aCtx   = cAurora.getContext('2d');
+const cStars  = document.getElementById('cStars'),  sCtx   = cStars.getContext('2d');
+const cVig    = document.getElementById('cVig'),    vigCtx = cVig.getContext('2d');
+
+let W, H, t = 0;
+
+function resize() {
+  W = hero.offsetWidth;
+  H = hero.offsetHeight;
+  [cBg,cVortex,cCircuit,cAurora,cStars,cVig].forEach(c => { c.width = W; c.height = H; });
+  buildCircuit();
+  initStars();
+  initParticles();
+}
+
+/* ─────────────────────────────────────────
+   LAYER 1 — DEEP MESH GRADIENT BACKGROUND
+───────────────────────────────────────── */
+const meshBlobs = [
+  { x:.15, y:.45, sp:.006, ph:0,   h:270, s:80 },
+  { x:.72, y:.28, sp:.005, ph:1.3, h:240, s:70 },
+  { x:.5,  y:.82, sp:.008, ph:2.6, h:290, s:85 },
+  { x:.85, y:.62, sp:.004, ph:0.7, h:210, s:75 },
+  { x:.08, y:.2,  sp:.007, ph:3.5, h:260, s:80 },
+];
+function drawBg() {
+  bgCtx.clearRect(0,0,W,H);
+  bgCtx.fillStyle = '#04020f';
+  bgCtx.fillRect(0,0,W,H);
+  for (const b of meshBlobs) {
+    const ox = Math.sin(t * b.sp + b.ph) * .09;
+    const oy = Math.cos(t * b.sp * .8 + b.ph) * .07;
+    const cx = (b.x + ox) * W, cy = (b.y + oy) * H;
+    const r  = .42 * Math.min(W, H);
+    const gr = bgCtx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    gr.addColorStop(0,   `hsla(${b.h},${b.s}%,35%,0.55)`);
+    gr.addColorStop(.5,  `hsla(${b.h},${b.s}%,20%,0.18)`);
+    gr.addColorStop(1,   'transparent');
+    bgCtx.fillStyle = gr;
+    bgCtx.fillRect(0,0,W,H);
+  }
+}
+
+/* ─────────────────────────────────────────
+   LAYER 2 — PARTICLE VORTEX (400 particles)
+───────────────────────────────────────── */
+let particles = [];
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < 400; i++) {
+    const angle  = Math.random() * Math.PI * 2;
+    const radius = 20 + Math.random() * Math.min(W, H) * .42;
+    particles.push({
+      angle, radius,
+      speed : .003 + Math.random() * .014,
+      r     : .3 + Math.random() * 1.8,
+      hue   : 220 + Math.random() * 140,
+      lph   : Math.random() * Math.PI * 2,
+      lsp   : .012 + Math.random() * .022,
+      z     : Math.random(),
+      drift : (Math.random() - .5) * .15
+    });
+  }
+}
+const ripples = [];
+function addRipple() {
+  ripples.push({ r: 0, maxR: Math.min(W, H) * .4, a: .6, sp: .9 + Math.random() * .6 });
+  setTimeout(addRipple, 1600 + Math.random() * 1400);
+}
+setTimeout(addRipple, 600);
+
+function drawVortex() {
+  vCtx.clearRect(0,0,W,H);
+  const cx = W/2, cy = H/2;
+
+  // core glow
+  const cp = .75 + .2 * Math.sin(t * .035);
+  const cg = vCtx.createRadialGradient(cx, cy, 0, cx, cy, 110 * cp);
+  cg.addColorStop(0,   'rgba(180,80,255,0.28)');
+  cg.addColorStop(.45, 'rgba(80,50,200,0.10)');
+  cg.addColorStop(1,   'transparent');
+  vCtx.fillStyle = cg;
+  vCtx.fillRect(0,0,W,H);
+
+  // ripples
+  for (let i = ripples.length - 1; i >= 0; i--) {
+    const rp = ripples[i];
+    vCtx.beginPath();
+    vCtx.arc(cx, cy, rp.r, 0, Math.PI * 2);
+    vCtx.strokeStyle = `rgba(160,80,255,${rp.a * (1 - rp.r / rp.maxR)})`;
+    vCtx.lineWidth = .9;
+    vCtx.stroke();
+    rp.r += rp.sp;
+    if (rp.r > rp.maxR) ripples.splice(i, 1);
+  }
+
+  // particles
+  for (const p of particles) {
+    p.angle  += p.speed * (1.2 - .8 * (p.radius / (Math.min(W,H) * .42)));
+    p.radius += Math.sin(t * .01 + p.lph) * p.drift;
+    p.radius  = Math.max(12, Math.min(p.radius, Math.min(W,H) * .43));
+    p.lph    += p.lsp;
+
+    const px = cx + Math.cos(p.angle) * p.radius;
+    const py = cy + Math.sin(p.angle) * p.radius * .58;
+    const al = (.25 + .7 * Math.abs(Math.sin(p.lph))) * (.25 + p.z * .75);
+
+    // tail
+    const tx = cx + Math.cos(p.angle - .06) * p.radius;
+    const ty = cy + Math.sin(p.angle - .06) * p.radius * .58;
+    vCtx.beginPath();
+    vCtx.moveTo(tx, ty);
+    vCtx.lineTo(px, py);
+    vCtx.strokeStyle = `hsla(${p.hue},90%,72%,${al * .35})`;
+    vCtx.lineWidth   = p.r * .55;
+    vCtx.stroke();
+
+    vCtx.beginPath();
+    vCtx.arc(px, py, p.r, 0, Math.PI * 2);
+    vCtx.fillStyle = `hsla(${p.hue},90%,78%,${al})`;
+    vCtx.fill();
+  }
+
+  // bright core
+  const bc = vCtx.createRadialGradient(cx, cy, 0, cx, cy, 26);
+  bc.addColorStop(0,  'rgba(255,220,255,1)');
+  bc.addColorStop(.4, 'rgba(210,100,255,0.7)');
+  bc.addColorStop(1,  'rgba(100,40,200,0)');
+  vCtx.fillStyle = bc;
+  vCtx.beginPath();
+  vCtx.arc(cx, cy, 26, 0, Math.PI * 2);
+  vCtx.fill();
+}
+
+/* ─────────────────────────────────────────
+   LAYER 3 — CIRCUIT BOARD + LIVE PULSES
+───────────────────────────────────────── */
+let cNodes = [], cEdges = [], cPulses = [];
+function buildCircuit() {
+  cNodes = []; cEdges = []; cPulses = [];
+  const cols = 14, rows = 8, px = 20, py = 16;
+  const sx = (W - px*2) / (cols-1);
+  const sy = (H - py*2) / (rows-1);
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      cNodes.push({
+        x    : px + c*sx + (Math.random()-.5)*sx*.38,
+        y    : py + r*sy + (Math.random()-.5)*sy*.38,
+        type : Math.random()<.15 ? 'chip' : Math.random()<.25 ? 'big' : 'dot'
+      });
+    }
+  }
+  for (let i = 0; i < cNodes.length; i++) {
+    for (let j = i+1; j < cNodes.length; j++) {
+      const dx = cNodes[i].x - cNodes[j].x;
+      const dy = cNodes[i].y - cNodes[j].y;
+      const d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < sx*1.8 && Math.random() < .36 && cEdges.length < 100)
+        cEdges.push({ a: i, b: j });
+    }
+  }
+  firePulse();
+}
+function firePulse() {
+  if (cEdges.length) {
+    const e   = cEdges[Math.floor(Math.random() * cEdges.length)];
+    const col = Math.random() < .5 ? '140,100,255' : '60,180,255';
+    cPulses.push({ edge: e, p: 0, sp: .013 + Math.random()*.011, col, rev: Math.random()<.5 });
+  }
+  setTimeout(firePulse, 220 + Math.random() * 320);
+}
+function drawCircuit() {
+  ciCtx.clearRect(0,0,W,H);
+  for (const e of cEdges) {
+    const a = cNodes[e.a], b = cNodes[e.b];
+    ciCtx.beginPath();
+    ciCtx.moveTo(a.x, a.y);
+    ciCtx.lineTo(b.x, b.y);
+    ciCtx.strokeStyle = 'rgba(100,70,200,0.08)';
+    ciCtx.lineWidth   = .7;
+    ciCtx.stroke();
+  }
+  for (let i = cPulses.length-1; i >= 0; i--) {
+    const p    = cPulses[i];
+    const e    = p.edge;
+    const prog = p.rev ? 1 - p.p : p.p;
+    const a    = cNodes[e.a], b = cNodes[e.b];
+    const px   = a.x + (b.x - a.x) * prog;
+    const py   = a.y + (b.y - a.y) * prog;
+    const gr   = ciCtx.createRadialGradient(px, py, 0, px, py, 16);
+    gr.addColorStop(0, `rgba(${p.col},.8)`);
+    gr.addColorStop(1, `rgba(${p.col},0)`);
+    ciCtx.fillStyle = gr;
+    ciCtx.beginPath();
+    ciCtx.arc(px, py, 16, 0, Math.PI*2);
+    ciCtx.fill();
+    ciCtx.beginPath();
+    ciCtx.arc(px, py, 3, 0, Math.PI*2);
+    ciCtx.fillStyle = `rgba(${p.col},1)`;
+    ciCtx.fill();
+    p.p += p.sp;
+    if (p.p > 1) cPulses.splice(i, 1);
+  }
+  for (const n of cNodes) {
+    if (n.type === 'chip') {
+      ciCtx.strokeStyle = 'rgba(140,100,255,0.2)';
+      ciCtx.lineWidth   = .7;
+      ciCtx.strokeRect(n.x-5, n.y-5, 10, 10);
+      ciCtx.fillStyle   = 'rgba(140,100,255,0.08)';
+      ciCtx.fillRect(n.x-5, n.y-5, 10, 10);
+    } else if (n.type === 'big') {
+      ciCtx.beginPath();
+      ciCtx.arc(n.x, n.y, 3.5, 0, Math.PI*2);
+      ciCtx.fillStyle = 'rgba(120,80,255,0.28)';
+      ciCtx.fill();
+    } else {
+      ciCtx.beginPath();
+      ciCtx.arc(n.x, n.y, 1.6, 0, Math.PI*2);
+      ciCtx.fillStyle = 'rgba(100,70,200,0.16)';
+      ciCtx.fill();
+    }
+  }
+}
+
+/* ─────────────────────────────────────────
+   LAYER 4 — AURORA WAVE BANDS
+───────────────────────────────────────── */
+const auroraBands = [
+  { y:.22, amp:28, freq:.007, sp:.009, ph:0,   h:260, a:.07  },
+  { y:.34, amp:22, freq:.010, sp:.007, ph:1.4, h:280, a:.06  },
+  { y:.46, amp:18, freq:.013, sp:.011, ph:2.8, h:200, a:.05  },
+  { y:.60, amp:24, freq:.008, sp:.006, ph:0.9, h:300, a:.055 },
+  { y:.72, amp:16, freq:.011, sp:.013, ph:2.1, h:240, a:.045 },
+];
+function drawAurora() {
+  aCtx.clearRect(0,0,W,H);
+  for (const b of auroraBands) {
+    aCtx.beginPath();
+    for (let x = 0; x <= W; x += 3) {
+      const y = b.y*H
+        + Math.sin(x*b.freq + t*b.sp + b.ph) * b.amp
+        + Math.cos(x*b.freq*.6 - t*b.sp*.7) * b.amp*.4;
+      x === 0 ? aCtx.moveTo(x, y) : aCtx.lineTo(x, y);
+    }
+    aCtx.strokeStyle = `hsla(${b.h},90%,65%,${b.a})`;
+    aCtx.lineWidth   = 1.4;
+    aCtx.stroke();
+  }
+}
+
+/* ─────────────────────────────────────────
+   LAYER 5 — STARS + SHOOTING STARS
+───────────────────────────────────────── */
+let stars = [];
+const shoots = [];
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 100; i++) {
+    stars.push({
+      x     : Math.random() * W,
+      y     : Math.random() * H,
+      r     : .3 + Math.random() * 1.5,
+      sp    : .02 + Math.random() * .04,
+      ph    : Math.random() * Math.PI * 2,
+      bright: Math.random(),
+      vx    : (Math.random() - .5) * .1,
+      vy    : (Math.random() - .5) * .07
+    });
+  }
+}
+function launchShoot() {
+  shoots.push({
+    x: Math.random() * W * .55,
+    y: Math.random() * H * .3,
+    vx: 3.5 + Math.random() * 3,
+    vy: 1.2 + Math.random() * 2,
+    life: 55
+  });
+  setTimeout(launchShoot, 2200 + Math.random() * 3800);
+}
+setTimeout(launchShoot, 1000);
+setTimeout(launchShoot, 3400);
+
+function drawStars() {
+  sCtx.clearRect(0,0,W,H);
+  for (const s of stars) {
+    const al = .25 + .7 * Math.sin(t * s.sp + s.ph);
+    if (s.bright > .78) {
+      const gr = sCtx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r*7);
+      gr.addColorStop(0, `rgba(200,185,255,${al*.28})`);
+      gr.addColorStop(1, 'transparent');
+      sCtx.fillStyle = gr;
+      sCtx.beginPath();
+      sCtx.arc(s.x, s.y, s.r*7, 0, Math.PI*2);
+      sCtx.fill();
+    }
+    sCtx.beginPath();
+    sCtx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    sCtx.fillStyle = s.bright > .7
+      ? `rgba(220,210,255,${al})`
+      : `rgba(140,130,200,${al*.55})`;
+    sCtx.fill();
+    s.x += s.vx; s.y += s.vy;
+    if (s.x < 0) s.x = W; if (s.x > W) s.x = 0;
+    if (s.y < 0) s.y = H; if (s.y > H) s.y = 0;
+  }
+  for (let i = shoots.length - 1; i >= 0; i--) {
+    const sh   = shoots[i];
+    const prog = sh.life / 55;
+    sCtx.save();
+    sCtx.globalAlpha = prog;
+    const gr = sCtx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx*10, sh.y - sh.vy*10);
+    gr.addColorStop(0, 'rgba(255,255,255,.95)');
+    gr.addColorStop(1, 'rgba(160,140,255,0)');
+    sCtx.beginPath();
+    sCtx.moveTo(sh.x, sh.y);
+    sCtx.lineTo(sh.x - sh.vx*10, sh.y - sh.vy*10);
+    sCtx.strokeStyle = gr;
+    sCtx.lineWidth   = 1.6;
+    sCtx.stroke();
+    sCtx.beginPath();
+    sCtx.arc(sh.x, sh.y, 2.2, 0, Math.PI*2);
+    sCtx.fillStyle = 'white';
+    sCtx.fill();
+    sCtx.restore();
+    sh.x += sh.vx; sh.y += sh.vy; sh.life--;
+    if (sh.life <= 0) shoots.splice(i, 1);
+  }
+}
+
+/* ─────────────────────────────────────────
+   LAYER 6 — CINEMATIC VIGNETTE
+───────────────────────────────────────── */
+function drawVig() {
+  vigCtx.clearRect(0,0,W,H);
+  const gr = vigCtx.createRadialGradient(W/2, H/2, H*.22, W/2, H/2, W*.72);
+  gr.addColorStop(0, 'rgba(0,0,0,0)');
+  gr.addColorStop(1, 'rgba(2,1,12,0.7)');
+  vigCtx.fillStyle = gr;
+  vigCtx.fillRect(0,0,W,H);
+  const tg = vigCtx.createLinearGradient(0, 0, 0, H*.2);
+  tg.addColorStop(0, 'rgba(3,1,14,0.45)');
+  tg.addColorStop(1, 'transparent');
+  vigCtx.fillStyle = tg;
+  vigCtx.fillRect(0, 0, W, H*.2);
+  const bg = vigCtx.createLinearGradient(0, H*.8, 0, H);
+  bg.addColorStop(0, 'transparent');
+  bg.addColorStop(1, 'rgba(3,1,14,0.45)');
+  vigCtx.fillStyle = bg;
+  vigCtx.fillRect(0, H*.8, W, H*.2);
+}
+
+/* ─────────────────────────────────────────
+   MASTER ANIMATION LOOP
+───────────────────────────────────────── */
+function loop() {
+  drawBg();
+  drawVortex();
+  drawCircuit();
+  drawAurora();
+  drawStars();
+  drawVig();
+  t++;
+  requestAnimationFrame(loop);
+}
+
+resize();
+loop();
+window.addEventListener('resize', resize);
+
+/* ─────────────────────────────────────────
+   COUNT-UP STATS
+───────────────────────────────────────── */
+function countUp(el, target, suffix, dur) {
+  let v = 0;
+  const step = target / (dur / 16);
+  const iv = setInterval(() => {
+    v = Math.min(v + step, target);
+    el.textContent = Math.floor(v).toLocaleString() + suffix;
+    if (v >= target) clearInterval(iv);
+  }, 16);
+}
+setTimeout(() => {
+  countUp(document.getElementById('s1'), 12480, '',  1800);
+  countUp(document.getElementById('s2'), 87,    '%', 1400);
+  countUp(document.getElementById('s3'), 3200,  '',  2000);
+}, 400);
+</script>
+</body>
+</html>

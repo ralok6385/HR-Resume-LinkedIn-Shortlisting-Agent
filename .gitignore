@@ -1,0 +1,43 @@
+# Environment & Secrets
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project Output
+output/*.html
+output/*.json
+output/*.pdf
+
+# Model Cache
+models/
+.cache/
+sentence_transformers/
+
+# Logs
+*.log
+audit_log.json
