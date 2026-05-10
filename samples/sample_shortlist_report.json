@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "generated_at": "2026-05-08T18:14:15.297480",
+    "total_candidates": 1,
+    "report_version": "1.0"
+  },
+  "job_requirements": {
+    "title": "%PDF-1.4",
+    "company": "",
+    "department": "",
+    "required_skills": [
+      "react",
+      "node.js",
+      "flask",
+      "mongodb",
+      "docker",
+      "git",
+      "api",
+      "rest",
+      "ai",
+      "pytorch",
+      "css",
+      "communication",
+      "c#",
+      "go"
+    ],
+    "preferred_skills": [],
+    "min_years_experience": 0,
+    "max_years_experience": 0,
+    "required_domains": [],
+    "seniority_level": "Junior",
+    "min_education": "Bachelor's",
+    "preferred_education": "",
+    "required_certifications": [],
+    "preferred_certifications": [],
+    "key_responsibilities": [],
+    "project_expectations": "",
+    "communication_requirements": ""
+  },
+  "summary_statistics": {
+    "total_candidates": 1,
+    "average_score": 3.65,
+    "max_score": 3.65,
+    "min_score": 3.65,
+    "median_score": 3.65,
+    "strong_hire_count": 0,
+    "hire_count": 0,
+    "maybe_count": 0,
+    "no_hire_count": 1,
+    "overridden_count": 0
+  },
+  "ranked_candidates": [
+    {
+      "rank": 1,
+      "percentile": 100.0,
+      "candidate_name": "Alok Kumar",
+      "candidate_file": "tmpov4o6f18_MYCV.pdf",
+      "total_weighted_score": 3.65,
+      "max_possible_score": 10.0,
+      "recommendation": "No Hire",
+      "overall_summary": "Heuristic scoring (LLM unavailable). Skills match: 0%, Experience: 0.0y",
+      "semantic_similarity": 0.0,
+      "dimension_scores": [
+        {
+          "dimension": "Skills Match",
+          "weight": 0.3,
+          "score": 1.0,
+          "weighted_score": 0.3,
+          "justification": "0% skills matched via semantic analysis",
+          "confidence": 0.6
+        },
+        {
+          "dimension": "Experience Relevance",
+          "weight": 0.25,
+          "score": 7.0,
+          "weighted_score": 1.75,
+          "justification": "0.0 years experience in unspecified domain",
+          "confidence": 0.5
+        },
+        {
+          "dimension": "Education & Certifications",
+          "weight": 0.15,
+          "score": 6.0,
+          "weighted_score": 0.9,
+          "justification": "Bachelor's, 0 certifications",
+          "confidence": 0.7
+        },
+        {
+          "dimension": "Project / Portfolio",
+          "weight": 0.2,
+          "score": 1.0,
+          "weighted_score": 0.2,
+          "justification": "0 projects listed",
+          "confidence": 0.5
+        },
+        {
+          "dimension": "Communication Quality",
+          "weight": 0.1,
+          "score": 5.0,
+          "weighted_score": 0.5,
+          "justification": "Heuristic default (LLM unavailable for quality assessment)",
+          "confidence": 0.3
+        }
+      ],
+      "is_overridden": false,
+      "override_reason": "",
+      "override_recommendation": ""
+    }
+  ]
+}
