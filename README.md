@@ -7,11 +7,16 @@
   <img src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit" />
 </div>
 
+<div align="center">
+  <h3>🚀 <a href="https://hr-resume-linkedin-shortlisting-agent.streamlit.app">View Live Demo</a></h3>
+</div>
+
 <br>
 
 > **An enterprise-grade applicant tracking prototype** that ingests Job Descriptions, parses PDF/DOCX resumes and LinkedIn profiles, and scores candidates across 5 weighted dimensions using LLM reasoning and semantic vector matching. Features a stunning "Light Luxury" UI with human-in-the-loop override capabilities.
 
 ---
+
 
 ## 🎯 The Business Problem
 
