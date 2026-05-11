@@ -71,14 +71,14 @@ def generate_pdf_report(candidates, report_title):
     # Rows
     pdf.set_font("Helvetica", "", 10)
     for cand in candidates:
-        name = cand.get("name", "N/A")
+        name = str(cand.get("name", "N/A")).encode('latin-1', 'replace').decode('latin-1')
         score = f"{cand.get('weighted_total', 0)}/100"
-        summary = cand.get("overall_summary", "No summary available.")
+        summary = str(cand.get("overall_summary", "No summary available."))
         if not summary or summary == "No summary available.":
-            # Try to build from dimensions if summary is missing
             summary = "Evaluated candidate profile."
             
-        # Truncate summary for table
+        # Sanitize summary for Latin-1
+        summary = summary.encode('latin-1', 'replace').decode('latin-1')
         disp_summary = (summary[:80] + '...') if len(summary) > 80 else summary
         
         pdf.cell(60, 10, f" {name}", border=1)
@@ -93,23 +93,28 @@ def generate_pdf_report(candidates, report_title):
     for cand in candidates:
         pdf.ln(5)
         pdf.set_font("Helvetica", "B", 11)
-        pdf.cell(0, 8, f"Candidate: {cand.get('name')}", ln=True)
+        cand_name = str(cand.get('name')).encode('latin-1', 'replace').decode('latin-1')
+        pdf.cell(0, 8, f"Candidate: {cand_name}", ln=True)
         pdf.set_font("Helvetica", "", 10)
         
         # Build a detailed text block
-        detail_text = f"Applied Role: {cand.get('applied_role', 'General')}\n"
-        detail_text += f"Final Recommendation: {cand.get('recommendation', 'Unknown').upper()}\n\n"
+        role = str(cand.get('applied_role', 'General')).encode('latin-1', 'replace').decode('latin-1')
+        rec = str(cand.get('recommendation', 'Unknown')).upper().encode('latin-1', 'replace').decode('latin-1')
+        
+        detail_text = f"Applied Role: {role}\n"
+        detail_text += f"Final Recommendation: {rec}\n\n"
         
         # Add dimension justifications
         for dim, dim_data in cand.get("scores", {}).items():
             dim_label = dim.replace("_", " ").title()
             dim_score = dim_data.get("score", 0)
-            dim_just = dim_data.get("justification", "N/A")
-            detail_text += f"• {dim_label} ({dim_score}/10): {dim_just}\n"
+            dim_just = str(dim_data.get("justification", "N/A")).encode('latin-1', 'replace').decode('latin-1')
+            detail_text += f"* {dim_label} ({dim_score}/10): {dim_just}\n"
             
         pdf.multi_cell(0, 6, detail_text)
         pdf.ln(2)
         pdf.line(pdf.get_x(), pdf.get_y(), pdf.get_x() + 190, pdf.get_y())
+
 
     return pdf.output(dest='S')
 
