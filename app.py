@@ -828,6 +828,31 @@ with tab5:
         else:
             st.markdown(f'<p style="margin-bottom: 20px; color:#64748b;">Showing all <strong>{len(history_data)}</strong> historical candidate evaluations.</p>', unsafe_allow_html=True)
         
+        # Filter-based download section
+        st.markdown("##### 📥 Export Filtered Data")
+        exp_col1, exp_col2 = st.columns(2)
+        with exp_col1:
+            hired_only = [c for c in history_data if c.get('recommendation', '').lower() == 'hire']
+            st.download_button(
+                label=f"⬇️ Download Selected ({len(hired_only)})",
+                data=json.dumps(hired_only, indent=2),
+                file_name="selected_candidates.json",
+                mime="application/json",
+                use_container_width=True,
+                help="Download only candidates with 'HIRE' recommendation"
+            )
+        with exp_col2:
+            rejected_only = [c for c in history_data if c.get('recommendation', '').lower() == 'no-hire']
+            st.download_button(
+                label=f"⬇️ Download Rejected ({len(rejected_only)})",
+                data=json.dumps(rejected_only, indent=2),
+                file_name="rejected_candidates.json",
+                mime="application/json",
+                use_container_width=True,
+                help="Download only candidates with 'NO-HIRE' recommendation"
+            )
+        st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
+        
         # Render Custom Table Header
         header_cols = st.columns([2, 2, 1, 1, 1, 1.5, 1], vertical_alignment="bottom")
         with header_cols[0]: st.markdown("<span style='color:#94a3b8; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;'>Candidate Name</span>", unsafe_allow_html=True)
