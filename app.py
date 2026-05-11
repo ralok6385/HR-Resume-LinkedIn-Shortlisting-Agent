@@ -13,6 +13,8 @@ from groq import Groq
 import concurrent.futures
 from engine.embeddings import EmbeddingEngine
 from ui import show_skeleton_loader, render_radar_chart, render_score_distribution
+from fpdf import FPDF
+
 
 DB_FILE = "candidate_db.json"
 
@@ -42,6 +44,75 @@ def save_db(new_candidates):
     with open(DB_FILE, "w") as f:
         json.dump(history, f)
     return history
+
+def generate_pdf_report(candidates, report_title):
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
+    
+    # Header
+    pdf.set_font("Helvetica", "B", 20)
+    pdf.set_text_color(71, 71, 223) # primaryColor
+    pdf.cell(0, 15, report_title, ln=True, align="C")
+    
+    pdf.set_font("Helvetica", "", 10)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, f"Generated on {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} | Enterprise ATS Prototype", ln=True, align="C")
+    pdf.ln(5)
+    
+    # Table Header
+    pdf.set_fill_color(240, 242, 246)
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(60, 10, " Candidate Name", border=1, fill=True)
+    pdf.cell(30, 10, " Score", border=1, fill=True)
+    pdf.cell(100, 10, " Overall Summary", border=1, fill=True, ln=True)
+    
+    # Rows
+    pdf.set_font("Helvetica", "", 10)
+    for cand in candidates:
+        name = cand.get("name", "N/A")
+        score = f"{cand.get('weighted_total', 0)}/100"
+        summary = cand.get("overall_summary", "No summary available.")
+        if not summary or summary == "No summary available.":
+            # Try to build from dimensions if summary is missing
+            summary = "Evaluated candidate profile."
+            
+        # Truncate summary for table
+        disp_summary = (summary[:80] + '...') if len(summary) > 80 else summary
+        
+        pdf.cell(60, 10, f" {name}", border=1)
+        pdf.cell(30, 10, f" {score}", border=1)
+        pdf.cell(100, 10, f" {disp_summary}", border=1, ln=True)
+
+    pdf.ln(10)
+    pdf.set_font("Helvetica", "B", 14)
+    pdf.cell(0, 10, "Detailed AI Justifications", ln=True)
+    pdf.set_font("Helvetica", "", 10)
+    
+    for cand in candidates:
+        pdf.ln(5)
+        pdf.set_font("Helvetica", "B", 11)
+        pdf.cell(0, 8, f"Candidate: {cand.get('name')}", ln=True)
+        pdf.set_font("Helvetica", "", 10)
+        
+        # Build a detailed text block
+        detail_text = f"Applied Role: {cand.get('applied_role', 'General')}\n"
+        detail_text += f"Final Recommendation: {cand.get('recommendation', 'Unknown').upper()}\n\n"
+        
+        # Add dimension justifications
+        for dim, dim_data in cand.get("scores", {}).items():
+            dim_label = dim.replace("_", " ").title()
+            dim_score = dim_data.get("score", 0)
+            dim_just = dim_data.get("justification", "N/A")
+            detail_text += f"• {dim_label} ({dim_score}/10): {dim_just}\n"
+            
+        pdf.multi_cell(0, 6, detail_text)
+        pdf.ln(2)
+        pdf.line(pdf.get_x(), pdf.get_y(), pdf.get_x() + 190, pdf.get_y())
+
+    return pdf.output(dest='S')
+
 
 import pandas as pd
 import altair as alt
@@ -829,29 +900,38 @@ with tab5:
             st.markdown(f'<p style="margin-bottom: 20px; color:#64748b;">Showing all <strong>{len(history_data)}</strong> historical candidate evaluations.</p>', unsafe_allow_html=True)
         
         # Filter-based download section
-        st.markdown("##### 📥 Export Filtered Data")
+        st.markdown("##### 📥 Export Professional Reports")
         exp_col1, exp_col2 = st.columns(2)
         with exp_col1:
             hired_only = [c for c in history_data if c.get('recommendation', '').lower() == 'hire']
-            st.download_button(
-                label=f"⬇️ Download Selected ({len(hired_only)})",
-                data=json.dumps(hired_only, indent=2),
-                file_name="selected_candidates.json",
-                mime="application/json",
-                use_container_width=True,
-                help="Download only candidates with 'HIRE' recommendation"
-            )
+            if hired_only:
+                pdf_data = generate_pdf_report(hired_only, "Selected Candidates Report")
+                st.download_button(
+                    label=f"⬇️ Download Selected PDF ({len(hired_only)})",
+                    data=pdf_data,
+                    file_name=f"selected_candidates_{datetime.datetime.now().strftime('%Y%m%d')}.pdf",
+                    mime="application/pdf",
+                    use_container_width=True,
+                    help="Download professional PDF report of HIRED candidates"
+                )
+            else:
+                st.button(f"⬇️ Download Selected PDF (0)", disabled=True, use_container_width=True)
         with exp_col2:
             rejected_only = [c for c in history_data if c.get('recommendation', '').lower() == 'no-hire']
-            st.download_button(
-                label=f"⬇️ Download Rejected ({len(rejected_only)})",
-                data=json.dumps(rejected_only, indent=2),
-                file_name="rejected_candidates.json",
-                mime="application/json",
-                use_container_width=True,
-                help="Download only candidates with 'NO-HIRE' recommendation"
-            )
+            if rejected_only:
+                pdf_data = generate_pdf_report(rejected_only, "Rejected Candidates Report")
+                st.download_button(
+                    label=f"⬇️ Download Rejected PDF ({len(rejected_only)})",
+                    data=pdf_data,
+                    file_name=f"rejected_candidates_{datetime.datetime.now().strftime('%Y%m%d')}.pdf",
+                    mime="application/pdf",
+                    use_container_width=True,
+                    help="Download professional PDF report of NO-HIRE candidates"
+                )
+            else:
+                st.button(f"⬇️ Download Rejected PDF (0)", disabled=True, use_container_width=True)
         st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
+
         
         # Render Custom Table Header
         header_cols = st.columns([2, 2, 1, 1, 1, 1.5, 1], vertical_alignment="bottom")
