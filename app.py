@@ -116,7 +116,7 @@ def generate_pdf_report(candidates, report_title):
         pdf.line(pdf.get_x(), pdf.get_y(), pdf.get_x() + 190, pdf.get_y())
 
 
-    return pdf.output(dest='S')
+    return bytes(pdf.output())
 
 
 import pandas as pd
